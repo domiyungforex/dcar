@@ -1,6 +1,11 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { getCar, saveCar, deleteCar } from "@/lib/storage"
 
+function verifyAdminCode(request: NextRequest): boolean {
+  const code = request.headers.get("x-admin-code")
+  return code === process.env.ADMIN_ACCESS_CODE
+}
+
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   try {
@@ -17,8 +22,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   try {
-    const token = request.headers.get("x-admin-token")
-    if (!token || token !== process.env.ADMIN_TOKEN) {
+    if (!verifyAdminCode(request)) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
@@ -40,8 +44,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   try {
-    const token = request.headers.get("x-admin-token")
-    if (!token || token !== process.env.ADMIN_TOKEN) {
+    if (!verifyAdminCode(request)) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 

@@ -4,24 +4,30 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import type { Car } from "@/lib/types"
+import { adminFetch, getAdminCode } from "@/lib/admin-helpers"
+import AdminCodeEntry from "@/components/AdminCodeEntry"
 
 export default function AdminCarsPage() {
   const router = useRouter()
   const [cars, setCars] = useState<Car[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   useEffect(() => {
+    const code = getAdminCode()
+    if (!code) {
+      setIsAuthenticated(false)
+      return
+    }
+    setIsAuthenticated(true)
     fetchCars()
   }, [])
 
   async function fetchCars() {
     try {
       setLoading(true)
-      const token = localStorage.getItem("admin_token")
-      const res = await fetch("/api/cars", {
-        headers: { "x-admin-token": token || "" },
-      })
+      const res = await adminFetch("/api/cars")
 
       if (!res.ok) throw new Error("Failed to fetch cars")
       const data = await res.json()
@@ -38,10 +44,8 @@ export default function AdminCarsPage() {
     if (!confirm("Are you sure you want to delete this car?")) return
 
     try {
-      const token = localStorage.getItem("admin_token")
-      const res = await fetch(`/api/cars/${id}`, {
+      const res = await adminFetch(`/api/cars/${id}`, {
         method: "DELETE",
-        headers: { "x-admin-token": token || "" },
       })
 
       if (!res.ok) throw new Error("Failed to delete car")
@@ -50,6 +54,10 @@ export default function AdminCarsPage() {
       alert("Failed to delete car")
       console.error(err)
     }
+  }
+
+  if (!isAuthenticated) {
+    return <AdminCodeEntry onSuccess={() => setIsAuthenticated(true)} />
   }
 
   return (
