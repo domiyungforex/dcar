@@ -2,6 +2,8 @@ import Link from "next/link"
 import CarCard from "@/components/CarCard"
 import { getCars } from "@/lib/storage"
 import { ScrollReveal } from "@/components/ScrollReveal"
+import ServicesSection from "@/components/ServicesSection"
+import ContactSection from "@/components/ContactSection"
 
 export const revalidate = 60
 
@@ -90,6 +92,12 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Services Section */}
+      <ServicesSection />
+
+      {/* Contact Section */}
+      <ContactSection />
+
       {/* CTA Section */}
       <section className="py-16 sm:py-20 bg-secondary/50 backdrop-blur-custom border-t border-accent/20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -103,3 +111,4 @@ export default async function Home() {
     </div>
   )
 }
+

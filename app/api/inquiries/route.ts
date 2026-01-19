@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { saveSubmission } from "@/lib/redis-submissions"
+import { sendInquiryNotification } from "@/lib/email-service"
 
 /**
  * POST /api/inquiries - Save car inquiry (redirects to /api/submissions/inquiry)
@@ -23,6 +24,9 @@ export async function POST(request: NextRequest) {
       message,
       submittedAt: new Date().toISOString(),
     })
+
+    // Send email notification
+    sendInquiryNotification(submission).catch(err => console.error("Email error:", err))
 
     return NextResponse.json(
       {

@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { saveSubmission } from "@/lib/redis-submissions"
+import { sendNewsletterNotification } from "@/lib/email-service"
 
 /**
  * POST /api/submissions/newsletter
@@ -17,6 +18,9 @@ export async function POST(request: NextRequest) {
     const submission = await saveSubmission("newsletter", email, {
       subscribedAt: new Date().toISOString(),
     })
+
+    // Send email notification
+    sendNewsletterNotification(email).catch(err => console.error("Email error:", err))
 
     return NextResponse.json({ success: true, id: submission.id }, { status: 201 })
   } catch (error) {

@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { saveSubmission } from "@/lib/redis-submissions"
+import { sendFileUploadNotification } from "@/lib/email-service"
 import { put } from "@vercel/blob"
 
 /**
@@ -35,6 +36,9 @@ export async function POST(request: NextRequest) {
       productId,
       uploadedAt: new Date().toISOString(),
     })
+
+    // Send email notification
+    sendFileUploadNotification(submission).catch(err => console.error("Email error:", err))
 
     return NextResponse.json({ success: true, id: submission.id, fileUrl: blob.url }, { status: 201 })
   } catch (error) {
