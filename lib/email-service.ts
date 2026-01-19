@@ -21,7 +21,7 @@ export async function sendEmailNotification(
     // Use Resend SDK if available
     if (resend && process.env.RESEND_API_KEY) {
       const { data, error } = await resend.emails.send({
-        from: 'DCAR Notifications <notifications@dcars.vercel.app>',
+        from: 'DCAR <onboarding@resend.dev>',
         to: recipient,
         subject,
         html: htmlContent,
