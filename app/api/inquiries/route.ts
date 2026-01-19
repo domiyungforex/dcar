@@ -1,42 +1,43 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { saveInquiry, getInquiries } from "@/lib/storage"
-import { randomUUID } from "crypto"
+import { saveSubmission } from "@/lib/redis-submissions"
 
-export async function GET(request: NextRequest) {
-  try {
-    const token = request.headers.get("x-admin-token")
-    if (!token || token !== process.env.ADMIN_TOKEN) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-    }
-
-    const inquiries = await getInquiries()
-    const inquiryList = Object.values(inquiries).sort(
-      (a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-    )
-    return NextResponse.json(inquiryList)
-  } catch (error) {
-    return NextResponse.json({ error: "Failed to fetch inquiries" }, { status: 500 })
-  }
-}
-
+/**
+ * POST /api/inquiries - Save car inquiry (redirects to /api/submissions/inquiry)
+ * This endpoint is kept for backward compatibility with the InquiryForm component
+ */
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const id = randomUUID()
+    const { carId, name, email, phone, message } = body
 
-    const inquiry = {
-      id,
-      carId: body.carId,
-      name: body.name,
-      email: body.email,
-      phone: body.phone,
-      message: body.message,
-      createdAt: new Date().toISOString(),
+    // Validation
+    if (!email || !name || !message) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
-    await saveInquiry(id, inquiry)
-    return NextResponse.json(inquiry, { status: 201 })
+    // Save as a submission using Redis
+    const submission = await saveSubmission("inquiry", email, {
+      name,
+      carId,
+      phone,
+      message,
+      submittedAt: new Date().toISOString(),
+    })
+
+    return NextResponse.json(
+      {
+        id: submission.id,
+        carId,
+        name,
+        email,
+        phone,
+        message,
+        createdAt: submission.createdAt,
+      },
+      { status: 201 },
+    )
   } catch (error) {
+    console.error("[v0] Inquiry submission error:", error)
     return NextResponse.json({ error: "Failed to create inquiry" }, { status: 500 })
   }
 }
