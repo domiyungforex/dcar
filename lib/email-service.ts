@@ -13,19 +13,27 @@ const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KE
 export async function sendEmailNotification(
   subject: string,
   htmlContent: string,
-  recipientEmail?: string
+  recipientEmail?: string,
+  senderEmail?: string
 ) {
   const recipient = recipientEmail || ADMIN_EMAIL
   
   try {
     // Use Resend SDK if available
     if (resend && process.env.RESEND_API_KEY) {
-      const { data, error } = await resend.emails.send({
+      const emailOptions: any = {
         from: 'DCAR <onboarding@resend.dev>',
         to: recipient,
         subject,
         html: htmlContent,
-      })
+      }
+
+      // Add reply-to if sender email provided (customer's email)
+      if (senderEmail) {
+        emailOptions.replyTo = senderEmail
+      }
+
+      const { data, error } = await resend.emails.send(emailOptions)
 
       if (error) {
         console.error('[Resend Error]', error)
@@ -79,7 +87,7 @@ export async function sendInquiryNotification(inquiry: any) {
     <p><strong>Message:</strong></p>
     <p>${inquiry.data?.message}</p>
   `
-  return sendEmailNotification('New Car Inquiry', html)
+  return sendEmailNotification('New Car Inquiry', html, undefined, inquiry.email)
 }
 
 export async function sendNewsletterNotification(email: string) {
@@ -87,7 +95,7 @@ export async function sendNewsletterNotification(email: string) {
     <h2>New Newsletter Subscription</h2>
     <p><strong>Email:</strong> ${email}</p>
   `
-  return sendEmailNotification('New Newsletter Subscriber', html)
+  return sendEmailNotification('New Newsletter Subscriber', html, undefined, email)
 }
 
 export async function sendFileUploadNotification(submission: any) {
@@ -98,7 +106,7 @@ export async function sendFileUploadNotification(submission: any) {
     <p><strong>Description:</strong> ${submission.data?.description}</p>
     <p><strong>File URL:</strong> <a href="${submission.data?.fileUrl}">Download</a></p>
   `
-  return sendEmailNotification('New File Upload', html)
+  return sendEmailNotification('New File Upload', html, undefined, submission.email)
 }
 
 export async function sendServiceInquiryNotification(serviceInquiry: any) {
@@ -113,6 +121,6 @@ export async function sendServiceInquiryNotification(serviceInquiry: any) {
     <p><strong>Description:</strong></p>
     <p>${serviceInquiry.data?.description}</p>
   `
-  return sendEmailNotification(`New Service Inquiry: ${serviceInquiry.serviceName}`, html, 'dmonhaloo@gmail.com')
+  return sendEmailNotification(`New Service Inquiry: ${serviceInquiry.serviceName}`, html, undefined, serviceInquiry.email)
 }
 
