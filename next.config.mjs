@@ -15,6 +15,7 @@ const nextConfig = {
   experimental: {
     staticGenerationRetryCount: 0,
   },
+  turbopack: {},
 }
 
 export default nextConfig
