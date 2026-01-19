@@ -5,7 +5,7 @@
 
 import { Resend } from 'resend'
 
-const ADMIN_EMAIL = 'dmonhaloo@gmail.com'
+const ADMIN_EMAIL = 'domiyungforex@gmail.com'
 
 // Initialize Resend client only in production/with API key
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null
@@ -22,7 +22,7 @@ export async function sendEmailNotification(
     // Use Resend SDK if available
     if (resend && process.env.RESEND_API_KEY) {
       const emailOptions: any = {
-        from: 'DCAR <onboarding@resend.dev>',
+        from: 'noreply@resend.dev',
         to: recipient,
         subject,
         html: htmlContent,
