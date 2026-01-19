@@ -12,10 +12,6 @@ const nextConfig = {
     ],
   },
   serverExternalPackages: ["@vercel/kv"],
-  experimental: {
-    staticGenerationRetryCount: 0,
-  },
-  turbopack: {},
 }
 
 export default nextConfig
