@@ -7,7 +7,7 @@ import { setData, getData, deleteData, listKeys } from "./upstash-storage"
 
 export interface Submission {
   id: string
-  type: "inquiry" | "newsletter" | "file-upload"
+  type: "inquiry" | "newsletter" | "file-upload" | "service-inquiry"
   email: string
   data: Record<string, unknown>
   createdAt: string

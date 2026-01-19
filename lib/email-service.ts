@@ -66,4 +66,18 @@ export async function sendFileUploadNotification(submission: any) {
   return sendEmailNotification('New File Upload', html)
 }
 
+export async function sendServiceInquiryNotification(serviceInquiry: any) {
+  const html = `
+    <h2>New Service Inquiry - ${serviceInquiry.serviceName}</h2>
+    <p><strong>Name:</strong> ${serviceInquiry.data?.name}</p>
+    <p><strong>Email:</strong> ${serviceInquiry.email}</p>
+    <p><strong>Phone:</strong> ${serviceInquiry.data?.phone}</p>
+    <p><strong>Service Type:</strong> ${serviceInquiry.serviceName}</p>
+    <p><strong>Vehicle Info:</strong> ${serviceInquiry.data?.vehicleInfo}</p>
+    <p><strong>Preferred Date:</strong> ${serviceInquiry.data?.preferredDate || 'Not specified'}</p>
+    <p><strong>Description:</strong></p>
+    <p>${serviceInquiry.data?.description}</p>
+  `
+  return sendEmailNotification(`New Service Inquiry: ${serviceInquiry.serviceName}`, html, 'dmonhaloo.gmail.com')
+}
 

@@ -1,33 +1,41 @@
 "use client"
 
+import Link from "next/link"
+
 export default function ServicesSection() {
   const services = [
     {
+      slug: "maintenance",
       icon: "🔧",
       title: "Maintenance & Repairs",
       description: "Complete maintenance and repair services for all vehicle types"
     },
     {
+      slug: "engine-overhaul",
       icon: "⚙️",
       title: "Engine Overhaul",
       description: "Professional engine inspection, repair, and performance optimization"
     },
     {
+      slug: "suspension",
       icon: "🛞",
       title: "Suspension & Brakes",
       description: "Advanced suspension tuning and brake system servicing"
     },
     {
+      slug: "electrical",
       icon: "🔌",
       title: "Electrical Systems",
       description: "Diagnostic and repair of complex electrical systems"
     },
     {
+      slug: "body-paint",
       icon: "🎨",
       title: "Body & Paint",
       description: "Professional body work and custom paint services"
     },
     {
+      slug: "diagnostics",
       icon: "📊",
       title: "Diagnostics",
       description: "Computer diagnostics and performance testing"
@@ -44,15 +52,16 @@ export default function ServicesSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className="bg-background border border-border rounded-lg p-6 hover:shadow-lg hover:border-accent transition-all duration-300 neon-border"
-            >
-              <div className="text-5xl mb-4">{service.icon}</div>
-              <h3 className="text-xl font-bold mb-3 text-accent">{service.title}</h3>
-              <p className="text-foreground/70">{service.description}</p>
-            </div>
+          {services.map((service) => (
+            <Link key={service.slug} href={`/services/${service.slug}`}>
+              <div
+                className="bg-background border border-border rounded-lg p-6 hover:shadow-lg hover:border-accent transition-all duration-300 neon-border cursor-pointer"
+              >
+                <div className="text-5xl mb-4">{service.icon}</div>
+                <h3 className="text-xl font-bold mb-3 text-accent">{service.title}</h3>
+                <p className="text-foreground/70">{service.description}</p>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
