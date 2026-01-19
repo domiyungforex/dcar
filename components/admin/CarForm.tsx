@@ -70,7 +70,10 @@ export const CarForm = ({ carId }: CarFormProps) => {
           body: formData,
         })
 
-        if (!res.ok) throw new Error("Upload failed")
+        if (!res.ok) {
+          const errorData = await res.json()
+          throw new Error(errorData.error || "Upload failed")
+        }
         const data = await res.json()
         uploadedUrls.push(data.url)
       }
