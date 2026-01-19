@@ -1,36 +1,74 @@
 /**
- * Email notification service using webhook or simple POST to email API
- * For now, we'll store the data and admin can retrieve via API
+ * Email notification service using Resend for production
+ * Falls back to console logging for development
  */
+
+const ADMIN_EMAIL = 'dmonhaloo.gmail.com'
 
 export async function sendEmailNotification(
   subject: string,
   htmlContent: string,
   recipientEmail?: string
 ) {
+  const recipient = recipientEmail || ADMIN_EMAIL
+  
   try {
-    // Store notification event
-    const event = {
-      timestamp: new Date().toISOString(),
-      subject,
-      htmlContent,
-      recipientEmail: recipientEmail || process.env.ADMIN_EMAIL,
+    // Use Resend API if available
+    if (process.env.RESEND_API_KEY) {
+      const response = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+        },
+        body: JSON.stringify({
+          from: 'notifications@dcars.vercel.app',
+          to: recipient,
+          subject,
+          html: htmlContent,
+        }),
+      })
+
+      if (!response.ok) {
+        const error = await response.text()
+        console.error('[Email Error]', error)
+        return false
+      }
+
+      console.log('[Email Sent]', { subject, recipient })
+      return true
     }
 
-    console.log('[Email Event]', event)
-
-    // If WEBHOOK_URL is set, send to external service
+    // Fallback: Try webhook if configured
     if (process.env.WEBHOOK_URL) {
+      const event = {
+        timestamp: new Date().toISOString(),
+        subject,
+        htmlContent,
+        recipientEmail: recipient,
+      }
+
       await fetch(process.env.WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(event),
-      }).catch(err => console.error('Webhook error:', err))
+      }).catch(err => console.error('[Webhook Error]', err))
+
+      console.log('[Email via Webhook]', { subject, recipient })
+      return true
     }
+
+    // Last resort: Log to console
+    console.log('[Email Event - Console Only]', {
+      timestamp: new Date().toISOString(),
+      subject,
+      recipient,
+      htmlContent,
+    })
 
     return true
   } catch (error) {
-    console.error('Failed to process email:', error)
+    console.error('[Email Service Error]', error)
     return false
   }
 }
