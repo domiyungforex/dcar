@@ -1,9 +1,14 @@
 /**
- * Email notification service using Resend for production
- * Falls back to console logging for development
+ * Email notification service using Resend SDK
+ * Sends real emails via Resend API
  */
 
-const ADMIN_EMAIL = 'dmonhaloo.gmail.com'
+import { Resend } from 'resend'
+
+const ADMIN_EMAIL = 'dmonhaloo@gmail.com'
+
+// Initialize Resend client only in production/with API key
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null
 
 export async function sendEmailNotification(
   subject: string,
@@ -13,29 +18,21 @@ export async function sendEmailNotification(
   const recipient = recipientEmail || ADMIN_EMAIL
   
   try {
-    // Use Resend API if available
-    if (process.env.RESEND_API_KEY) {
-      const response = await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
-        },
-        body: JSON.stringify({
-          from: 'notifications@dcars.vercel.app',
-          to: recipient,
-          subject,
-          html: htmlContent,
-        }),
+    // Use Resend SDK if available
+    if (resend && process.env.RESEND_API_KEY) {
+      const { data, error } = await resend.emails.send({
+        from: 'DCAR Notifications <notifications@dcars.vercel.app>',
+        to: recipient,
+        subject,
+        html: htmlContent,
       })
 
-      if (!response.ok) {
-        const error = await response.text()
-        console.error('[Email Error]', error)
+      if (error) {
+        console.error('[Resend Error]', error)
         return false
       }
 
-      console.log('[Email Sent]', { subject, recipient })
+      console.log('[Email Sent via Resend]', { subject, recipient, messageId: data?.id })
       return true
     }
 
@@ -59,11 +56,11 @@ export async function sendEmailNotification(
     }
 
     // Last resort: Log to console
-    console.log('[Email Event - Console Only]', {
+    console.log('[Email - Console Only]', {
       timestamp: new Date().toISOString(),
       subject,
       recipient,
-      htmlContent,
+      preview: htmlContent.substring(0, 100),
     })
 
     return true
@@ -116,6 +113,6 @@ export async function sendServiceInquiryNotification(serviceInquiry: any) {
     <p><strong>Description:</strong></p>
     <p>${serviceInquiry.data?.description}</p>
   `
-  return sendEmailNotification(`New Service Inquiry: ${serviceInquiry.serviceName}`, html, 'dmonhaloo.gmail.com')
+  return sendEmailNotification(`New Service Inquiry: ${serviceInquiry.serviceName}`, html, 'dmonhaloo@gmail.com')
 }
 
