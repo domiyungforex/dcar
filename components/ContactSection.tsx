@@ -135,17 +135,21 @@ export default function ContactSection() {
           <div className="text-center">
             <div className="text-4xl mb-3">📧</div>
             <h3 className="font-bold mb-2">Email</h3>
-            <p className="text-foreground/70">info@dcar.com</p>
+            <p className="text-foreground/70">dcar@gmail.com</p>
           </div>
           <div className="text-center">
             <div className="text-4xl mb-3">📞</div>
             <h3 className="font-bold mb-2">Phone</h3>
-            <p className="text-foreground/70">+1 (555) 123-4567</p>
+            <p className="text-foreground/70">08144106774</p>
           </div>
           <div className="text-center">
             <div className="text-4xl mb-3">📍</div>
-            <h3 className="font-bold mb-2">Location</h3>
-            <p className="text-foreground/70">123 Auto Street, Car City, USA</p>
+            <h3 className="font-bold mb-2">Locations</h3>
+            <p className="text-foreground/70 text-sm">
+              Lagos: Marina Business District
+              <br />
+              Ogun: Ibogun Industrial Estate
+            </p>
           </div>
         </div>
       </div>
