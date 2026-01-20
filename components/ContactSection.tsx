@@ -50,6 +50,12 @@ export default function ContactSection() {
           <h2 className="text-4xl sm:text-5xl font-bold mb-3 glow-text">GET IN TOUCH</h2>
           <div className="w-12 h-1 bg-accent rounded-full mx-auto"></div>
           <p className="text-foreground/60 mt-4 text-lg">We'd love to hear from you</p>
+          <div className="mt-6 text-sm text-foreground/70 space-y-1">
+            <p><strong>Email:</strong> dcar@gmail.com</p>
+            <p><strong>Phone:</strong> 08144106774</p>
+            <p><strong>Lagos Office:</strong> Plot 15, Marina Business District, Lagos Island</p>
+            <p><strong>Ogun Office:</strong> Ibogun Industrial Estate, Ogun State</p>
+          </div>
         </div>
 
         <div className="bg-background border border-border rounded-lg p-8 neon-border">

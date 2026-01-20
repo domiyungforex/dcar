@@ -25,9 +25,12 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Contact</h4>
             <p className="text-sm text-muted-foreground">
-              Email: info@dcar.com
+              Email: dcar@gmail.com
               <br />
-              Phone: +1 (555) 123-4567
+              Phone: 08144106774
+              <br />
+              <span className="text-xs mt-2 block">Lagos: Plot 15, Marina Business District, Lagos Island</span>
+              <span className="text-xs block">Ogun: Ibogun Industrial Estate, Ogun State</span>
             </p>
           </div>
         </div>
