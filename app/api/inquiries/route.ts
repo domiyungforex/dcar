@@ -9,7 +9,7 @@ import { sendInquiryNotification } from "@/lib/email-service"
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { carId, name, email, phone, message } = body
+    const { carId, carTitle, name, email, phone, message } = body
 
     // Validation
     if (!email || !name || !message) {
@@ -20,6 +20,7 @@ export async function POST(request: NextRequest) {
     const submission = await saveSubmission("inquiry", email, {
       name,
       carId,
+      carTitle,
       phone,
       message,
       submittedAt: new Date().toISOString(),

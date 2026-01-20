@@ -85,7 +85,7 @@ export default function ProductInquiryForm({ productId, productName, onSuccess }
       {success && <div className="text-sm text-green-700 bg-green-50 p-3 rounded">Inquiry sent successfully!</div>}
 
       <Button type="submit" disabled={isLoading} className="w-full">
-        {isLoading ? "Sending..." : "Send Inquiry"}
+        {isLoading ? "Sending..." : "Send"}
       </Button>
     </form>
   )

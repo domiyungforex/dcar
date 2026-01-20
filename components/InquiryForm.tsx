@@ -31,6 +31,7 @@ const InquiryForm = ({ carId, carTitle }: InquiryFormProps) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           carId,
+          carTitle,
           ...formData,
         }),
       })
@@ -118,7 +119,7 @@ const InquiryForm = ({ carId, carTitle }: InquiryFormProps) => {
           disabled={loading}
           className="w-full bg-accent text-accent-foreground py-2 rounded font-medium text-sm hover:opacity-90 disabled:opacity-50"
         >
-          {loading ? "Sending..." : "Send Inquiry"}
+          {loading ? "Sending..." : "Send"}
         </button>
       </form>
     </div>

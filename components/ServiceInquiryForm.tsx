@@ -142,7 +142,7 @@ export default function ServiceInquiryForm({ serviceType, serviceName }: Service
         disabled={loading}
         className="w-full bg-linear-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-semibold py-3 rounded transition-all"
       >
-        {loading ? 'Submitting...' : 'Submit Service Request'}
+        {loading ? 'Sending...' : 'Send'}
       </Button>
     </form>
   )

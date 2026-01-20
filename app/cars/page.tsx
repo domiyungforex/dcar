@@ -60,7 +60,7 @@ export default function CarsPage() {
     return true
   })
 
-  const brands = [...new Set(cars.map((c) => c.brand))].sort()
+  const brands = [...new Set(cars.map((c) => c.brand?.toLowerCase() || "other").filter(Boolean))].sort()
   const conditions = ["excellent", "good", "fair"]
 
   return (
@@ -119,7 +119,7 @@ export default function CarsPage() {
                       <option value="">All Brands</option>
                       {brands.map((brand) => (
                         <option key={brand} value={brand}>
-                          {brand}
+                          {brand.charAt(0).toUpperCase() + brand.slice(1)}
                         </option>
                       ))}
                     </select>
@@ -206,7 +206,7 @@ export default function CarsPage() {
             ) : filteredCars.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {filteredCars.map((car, idx) => (
-                  <div key={car.id} style={{ animationDelay: `${idx * 0.05}s` }} className="animate-fade-in-up">
+                  <div key={car.id} style={{ animationDelay: `${idx * 0.02}s` }} className="animate-fade-in-up">
                     <CarCard car={car} />
                   </div>
                 ))}
