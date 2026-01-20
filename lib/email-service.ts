@@ -124,3 +124,24 @@ export async function sendServiceInquiryNotification(serviceInquiry: any) {
   return sendEmailNotification(`New Service Inquiry: ${serviceInquiry.serviceName}`, html, undefined, serviceInquiry.email)
 }
 
+export async function sendBookingNotification(booking: any, senderEmail?: string) {
+  const html = `
+    <h2>🔧 New Inspection Booking</h2>
+    <p><strong>Service Type:</strong> ${booking.serviceType}</p>
+    <hr/>
+    <h3>Customer Information</h3>
+    <p><strong>Name:</strong> ${booking.name}</p>
+    <p><strong>Email:</strong> ${booking.email}</p>
+    <p><strong>Phone:</strong> ${booking.phone}</p>
+    <hr/>
+    <h3>Booking Details</h3>
+    <p><strong>Vehicle:</strong> ${booking.vehicleInfo || 'Not provided'}</p>
+    <p><strong>Preferred Date:</strong> ${booking.preferredDate}</p>
+    <p><strong>Preferred Time:</strong> ${booking.preferredTime}</p>
+    ${booking.notes ? `<p><strong>Additional Notes:</strong></p><p>${booking.notes}</p>` : ''}
+    <hr/>
+    <p><em>Please contact the customer to confirm the booking.</em></p>
+  `
+  return sendEmailNotification(`New Inspection Booking: ${booking.serviceType}`, html, undefined, senderEmail || booking.email)
+}
+

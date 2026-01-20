@@ -7,7 +7,7 @@ import { setData, getData, deleteData, listKeys } from "./upstash-storage"
 
 export interface Submission {
   id: string
-  type: "inquiry" | "newsletter" | "file-upload" | "service-inquiry"
+  type: "inquiry" | "newsletter" | "file-upload" | "service-inquiry" | "inspection-booking"
   email: string
   data: Record<string, unknown>
   createdAt: string
@@ -21,7 +21,7 @@ const SUBMISSIONS_INDEX = "submissions:all"
  * Save a form submission
  */
 export async function saveSubmission(
-  type: "inquiry" | "newsletter" | "file-upload",
+  type: "inquiry" | "newsletter" | "file-upload" | "service-inquiry" | "inspection-booking",
   email: string,
   data: Record<string, unknown>,
 ): Promise<Submission> {

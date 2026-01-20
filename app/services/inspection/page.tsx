@@ -19,6 +19,7 @@ export default function CarInspectionPage() {
 
   const pricingTiers = [
     {
+      id: "basic-inspection",
       title: "Basic Inspection",
       price: "₦25,000",
       items: [
@@ -34,6 +35,7 @@ export default function CarInspectionPage() {
       highlight: false,
     },
     {
+      id: "full-diagnostic",
       title: "Full Diagnostic",
       price: "₦45,000",
       items: [
@@ -51,6 +53,7 @@ export default function CarInspectionPage() {
       highlight: true,
     },
     {
+      id: "purchase-advisory",
       title: "Purchase Advisory",
       price: "₦65,000",
       items: [
@@ -154,7 +157,7 @@ export default function CarInspectionPage() {
                   <h3 className="text-2xl font-bold mb-2">{tier.title}</h3>
                   <div className="text-4xl font-bold text-accent mb-6">{tier.price}</div>
 
-                  <ul className="space-y-3 mb-8 flex-grow">
+                  <ul className="space-y-3 mb-8 grow">
                     {tier.items.map((item, itemIdx) => (
                       <li key={itemIdx} className="flex items-start gap-3">
                         <span className="text-accent mt-1">✓</span>
@@ -163,15 +166,17 @@ export default function CarInspectionPage() {
                     ))}
                   </ul>
 
-                  <Button
-                    className={`w-full font-bold py-3 ${
-                      tier.highlight
-                        ? "bg-accent hover:bg-accent/90 text-primary"
-                        : "bg-primary border border-accent text-accent hover:bg-accent/10"
-                    }`}
-                  >
-                    {tier.cta}
-                  </Button>
+                  <Link href={`/services/inspection/book?tier=${tier.id}`} className="w-full">
+                    <Button
+                      className={`w-full font-bold py-3 ${
+                        tier.highlight
+                          ? "bg-accent hover:bg-accent/90 text-primary"
+                          : "bg-primary border border-accent text-accent hover:bg-accent/10"
+                      }`}
+                    >
+                      {tier.cta}
+                    </Button>
+                  </Link>
                 </div>
               </ScrollReveal>
             ))}
