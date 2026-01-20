@@ -4,6 +4,7 @@ import { getCars } from "@/lib/storage"
 import { ScrollReveal } from "@/components/ScrollReveal"
 import ServicesSection from "@/components/ServicesSection"
 import ContactSection from "@/components/ContactSection"
+import WhyBuyDCAR from "@/components/WhyBuyDCAR"
 
 export const revalidate = 60
 
@@ -85,6 +86,9 @@ export default async function Home() {
           )}
         </div>
       </section>
+
+      {/* Services Section */}
+      <WhyBuyDCAR />
 
       {/* Services Section */}
       <ServicesSection />

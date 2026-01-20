@@ -27,6 +27,13 @@ export default function CarCard({ car }: CarCardProps) {
             <div className="absolute top-3 right-3 bg-accent text-primary px-3 py-1 rounded text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               FEATURED
             </div>
+            <div className={`absolute top-3 left-3 px-3 py-1 rounded text-xs font-bold text-white ${
+              car.condition === 'excellent' ? 'bg-green-600' :
+              car.condition === 'good' ? 'bg-blue-600' :
+              'bg-orange-600'
+            }`}>
+              {car.condition.toUpperCase()}
+            </div>
           </div>
         ) : (
           <div className="w-full h-48 bg-gradient-to-br from-primary to-secondary flex items-center justify-center">

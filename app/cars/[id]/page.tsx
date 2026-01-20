@@ -121,7 +121,18 @@ export default function CarDetailPage() {
 
             {/* Details */}
             <div className="bg-background border border-border rounded-lg p-4 sm:p-6">
-              <h1 className="text-2xl sm:text-3xl font-bold mb-4">{car.title}</h1>
+              <div className="flex items-start justify-between mb-4">
+                <h1 className="text-2xl sm:text-3xl font-bold">{car.title}</h1>
+                <div className={`px-4 py-2 rounded text-sm font-bold text-white ${
+                  car.condition === 'excellent' ? 'bg-green-600' :
+                  car.condition === 'good' ? 'bg-blue-600' :
+                  'bg-orange-600'
+                }`}>
+                  {car.condition === 'excellent' ? '✓ EXCELLENT' :
+                   car.condition === 'good' ? '✓ GOOD' :
+                   '⚠ FAIR'}
+                </div>
+              </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6 pb-6 border-b border-border">
                 <div>
@@ -133,12 +144,12 @@ export default function CarDetailPage() {
                   <p className="font-semibold text-sm sm:text-base">{car.mileage.toLocaleString()} mi</p>
                 </div>
                 <div>
-                  <p className="text-xs sm:text-sm text-muted-foreground mb-1">Condition</p>
-                  <p className="font-semibold text-sm sm:text-base capitalize">{car.condition}</p>
-                </div>
-                <div>
                   <p className="text-xs sm:text-sm text-muted-foreground mb-1">Brand</p>
                   <p className="font-semibold text-sm sm:text-base">{car.brand}</p>
+                </div>
+                <div>
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-1">Price</p>
+                  <p className="font-semibold text-sm sm:text-base text-accent">₦{car.price.toLocaleString()}</p>
                 </div>
               </div>
 
