@@ -47,7 +47,7 @@ export default function CarCard({ car }: CarCardProps) {
           </h3>
 
           <div className="flex items-baseline gap-2 mb-4">
-            <span className="text-3xl font-bold text-accent">${car.price.toLocaleString()}</span>
+            <span className="text-3xl font-bold text-accent">₦{car.price.toLocaleString()}</span>
           </div>
 
           <div className="grid grid-cols-3 gap-2 text-xs text-foreground/70 mb-4 pb-4 border-b border-accent/20">

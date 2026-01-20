@@ -52,7 +52,7 @@ export default function CarForm({ carId }: CarFormProps) {
   const [images, setImages] = useState<File[]>([])
   const [video, setVideo] = useState<File | null>(null)
   const [imagePreviews, setImagePreviews] = useState<string[]>([])
-  const [videoPreviews, setVideoPreviews] = useState<string>("")
+  const [videoPreviews, setVideoPreviews] = useState<string[]>([])
   const [isUploading, setIsUploading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
@@ -79,12 +79,7 @@ export default function CarForm({ carId }: CarFormProps) {
     if (!files) return
 
     const newImages = Array.from(files)
-    if (images.length + newImages.length > 5) {
-      setError("Maximum 5 images allowed")
-      return
-    }
-
-    const totalImages = [...images, ...newImages].slice(0, 5)
+    const totalImages = [...images, ...newImages].slice(0, 20)
     setImages(totalImages)
     setError(null)
 
@@ -108,22 +103,35 @@ export default function CarForm({ carId }: CarFormProps) {
     const files = e.target.files
     if (!files) return
 
-    const videoFile = files[0]
-    if (!videoFile.type.startsWith("video/")) {
-      setError("Please select a valid video file")
+    const newVideos = Array.from(files).filter((file) => file.type.startsWith("video/"))
+    if (newVideos.length === 0) {
+      setError("Please select valid video files")
       return
     }
 
-    setVideo(videoFile)
+    if (videoPreviews.length + newVideos.length > 5) {
+      setError("Maximum 5 videos allowed")
+      return
+    }
+
     setError(null)
 
-    const reader = new FileReader()
-    reader.onload = (e) => {
-      if (e.target?.result) {
-        setVideoPreviews(e.target.result as string)
+    // Create previews for videos
+    const newPreviews: string[] = [...videoPreviews]
+    let loadedCount = 0
+    newVideos.forEach((videoFile) => {
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        if (e.target?.result) {
+          newPreviews.push(e.target.result as string)
+          loadedCount++
+          if (loadedCount === newVideos.length) {
+            setVideoPreviews(newPreviews)
+          }
+        }
       }
-    }
-    reader.readAsDataURL(videoFile)
+      reader.readAsDataURL(videoFile)
+    })
   }
 
   const removeImage = (index: number) => {
@@ -133,10 +141,15 @@ export default function CarForm({ carId }: CarFormProps) {
     setImagePreviews(newPreviews)
   }
 
-  const removeVideo = () => {
-    setVideo(null)
-    setVideoPreviews("")
-    if (videoInputRef.current) videoInputRef.current.value = ""
+  const removeVideo = (index?: number) => {
+    if (index !== undefined) {
+      const newPreviews = videoPreviews.filter((_, i) => i !== index)
+      setVideoPreviews(newPreviews)
+    } else {
+      setVideo(null)
+      setVideoPreviews([])
+      if (videoInputRef.current) videoInputRef.current.value = ""
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -239,7 +252,7 @@ export default function CarForm({ carId }: CarFormProps) {
       setImages([])
       setVideo(null)
       setImagePreviews([])
-      setVideoPreviews("")
+      setVideoPreviews([])
       if (imageInputRef.current) imageInputRef.current.value = ""
       if (videoInputRef.current) videoInputRef.current.value = ""
 
@@ -508,7 +521,7 @@ export default function CarForm({ carId }: CarFormProps) {
         {/* Image Upload Section */}
         <div>
           <label className="block text-sm font-semibold mb-3">
-            Car Images ({images.length}/5)
+            Car Images ({images.length}/20)
           </label>
           <label className="block cursor-pointer">
             <div className="border-2 border-dashed border-blue-300 rounded-lg p-6 text-center bg-blue-50 hover:bg-blue-100 transition">
@@ -527,7 +540,7 @@ export default function CarForm({ carId }: CarFormProps) {
                 <path d="M32 4v12m0 0l-4-4m4 4l4-4" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               <p className="text-sm font-medium text-gray-900">Click to upload or drag images</p>
-              <p className="text-xs text-gray-500">PNG, JPG up to 5 images</p>
+              <p className="text-xs text-gray-500">PNG, JPG up to 20 images</p>
             </div>
             <input
               ref={imageInputRef}
@@ -535,7 +548,7 @@ export default function CarForm({ carId }: CarFormProps) {
               multiple
               accept="image/*"
               onChange={handleImageChange}
-              disabled={isUploading || images.length >= 5}
+              disabled={isUploading || images.length >= 20}
               className="hidden"
             />
           </label>
@@ -561,7 +574,7 @@ export default function CarForm({ carId }: CarFormProps) {
 
         {/* Video Upload Section */}
         <div>
-          <label className="block text-sm font-semibold mb-3">Car Video (Optional)</label>
+          <label className="block text-sm font-semibold mb-3">Car Videos ({videoPreviews.length}/5)</label>
           <label className="block cursor-pointer">
             <div className="border-2 border-dashed border-purple-300 rounded-lg p-6 text-center bg-purple-50 hover:bg-purple-100 transition">
               <svg
@@ -579,29 +592,34 @@ export default function CarForm({ carId }: CarFormProps) {
                 <path d="M20 16l12 8-12 8v-16z" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               <p className="text-sm font-medium text-gray-900">Click to upload video</p>
-              <p className="text-xs text-gray-500">MP4, WebM up to 100MB</p>
+              <p className="text-xs text-gray-500">MP4, WebM up to 5 videos</p>
             </div>
             <input
               ref={videoInputRef}
               type="file"
+              multiple
               accept="video/*"
               onChange={handleVideoChange}
-              disabled={isUploading}
+              disabled={isUploading || videoPreviews.length >= 5}
               className="hidden"
             />
           </label>
 
-          {/* Video Preview */}
-          {videoPreviews && (
-            <div className="mt-4 relative group">
-              <video src={videoPreviews} className="w-full max-w-xs h-40 object-cover rounded" controls />
-              <button
-                type="button"
-                onClick={removeVideo}
-                className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition"
-              >
-                ✕
-              </button>
+          {/* Video Previews */}
+          {videoPreviews.length > 0 && (
+            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+              {videoPreviews.map((preview, idx) => (
+                <div key={idx} className="relative group">
+                  <video src={preview} className="w-full h-40 object-cover rounded" controls />
+                  <button
+                    type="button"
+                    onClick={() => removeVideo(idx)}
+                    className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
             </div>
           )}
         </div>

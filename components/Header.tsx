@@ -61,6 +61,30 @@ export default function Header() {
             >
               Browse Cars
             </Link>
+            <Link
+              href="/services"
+              className={`text-sm font-semibold transition-all duration-300 relative ${
+                pathname === "/services" || pathname.startsWith("/services/") ? "text-accent" : "text-foreground/70 hover:text-accent"
+              } after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-all after:duration-300 ${pathname === "/services" || pathname.startsWith("/services/") ? "after:w-full" : "hover:after:w-full"}`}
+            >
+              Services
+            </Link>
+            <Link
+              href="/services/inspection"
+              className={`text-sm font-semibold transition-all duration-300 relative ${
+                pathname === "/services/inspection" ? "text-accent" : "text-foreground/70 hover:text-accent"
+              } after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-all after:duration-300 ${pathname === "/services/inspection" ? "after:w-full" : "hover:after:w-full"}`}
+            >
+              Inspection
+            </Link>
+            <Link
+              href="/about"
+              className={`text-sm font-semibold transition-all duration-300 relative ${
+                pathname === "/about" ? "text-accent" : "text-foreground/70 hover:text-accent"
+              } after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-all after:duration-300 ${pathname === "/about" ? "after:w-full" : "hover:after:w-full"}`}
+            >
+              About
+            </Link>
           </nav>
 
           <div className="flex items-center gap-4">
@@ -112,6 +136,39 @@ export default function Header() {
               onClick={() => setMobileMenuOpen(false)}
             >
               Browse Cars
+            </Link>
+            <Link
+              href="/services"
+              className={`block px-4 py-3 rounded text-sm font-semibold transition-all duration-300 ${
+                pathname === "/services" || pathname.startsWith("/services/")
+                  ? "bg-accent text-primary neon-border"
+                  : "text-foreground/70 hover:text-accent hover:bg-secondary/50"
+              }`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Services
+            </Link>
+            <Link
+              href="/services/inspection"
+              className={`block px-4 py-3 rounded text-sm font-semibold transition-all duration-300 ${
+                pathname === "/services/inspection"
+                  ? "bg-accent text-primary neon-border"
+                  : "text-foreground/70 hover:text-accent hover:bg-secondary/50"
+              }`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Inspection
+            </Link>
+            <Link
+              href="/about"
+              className={`block px-4 py-3 rounded text-sm font-semibold transition-all duration-300 ${
+                pathname === "/about"
+                  ? "bg-accent text-primary neon-border"
+                  : "text-foreground/70 hover:text-accent hover:bg-secondary/50"
+              }`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              About
             </Link>
           </nav>
         )}

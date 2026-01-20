@@ -173,7 +173,7 @@ export default function CarDetailPage() {
             {/* Price Card */}
             <div className="bg-background border border-border rounded-lg p-4 sm:p-6 mb-6 sticky top-20">
               <p className="text-muted-foreground text-xs sm:text-sm mb-2">Asking Price</p>
-              <p className="text-3xl sm:text-4xl font-bold text-accent mb-6">${car.price.toLocaleString()}</p>
+              <p className="text-3xl sm:text-4xl font-bold text-accent mb-6">₦{car.price.toLocaleString()}</p>
             </div>
 
             {/* Inquiry Form */}
