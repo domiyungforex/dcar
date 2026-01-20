@@ -79,13 +79,7 @@ export default async function Home() {
             <ScrollReveal>
               <div className="text-center py-20 backdrop-blur-custom rounded-lg neon-border">
                 <p className="text-foreground/60 mb-6 text-lg">No vehicles in catalog yet</p>
-                <Link
-                  href="/admin"
-                  className="inline-flex items-center gap-2 text-accent hover:text-accent-secondary transition"
-                >
-                  Add first vehicle
-                  <span>→</span>
-                </Link>
+                <p className="text-foreground/50 text-sm">Contact admin to add vehicles</p>
               </div>
             </ScrollReveal>
           )}
