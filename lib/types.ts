@@ -10,6 +10,34 @@ export interface Car {
   video?: string
   description: string
   createdAt: string
+  inspectionNote?: string
+  inspectionChecklist?: {
+    mechanical: {
+      engineNoise: boolean
+      oilLeaks: boolean
+      coolingSystem: boolean
+      gearboxResponse: boolean
+      suspensionSteering: boolean
+      brakeCondition: boolean
+    }
+    electrical: {
+      ecuScan: boolean
+      sensors: boolean
+      dashboardWarnings: boolean
+      acSystem: boolean
+    }
+    structural: {
+      chassisAlignment: boolean
+      accidentSigns: boolean
+      rustInspection: boolean
+    }
+    documents: {
+      vinVerification: boolean
+      customsPapers: boolean
+      ownershipHistory: boolean
+    }
+  }
+  status?: "available" | "sold"
 }
 
 export interface Inquiry {

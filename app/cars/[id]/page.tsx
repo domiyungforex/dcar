@@ -5,6 +5,7 @@ import { useParams } from "next/navigation"
 import Image from "next/image"
 import type { Car } from "@/lib/types"
 import { InquiryForm } from "@/components/InquiryForm"
+import InspectionSummary from "@/components/InspectionSummary"
 
 export default function CarDetailPage() {
   const params = useParams()
@@ -158,6 +159,11 @@ export default function CarDetailPage() {
                 <p className="text-sm sm:text-base text-foreground leading-relaxed whitespace-pre-wrap">
                   {car.description}
                 </p>
+              </div>
+
+              {/* Inspection Summary */}
+              <div className="mt-8">
+                <InspectionSummary car={car} />
               </div>
             </div>
           </div>

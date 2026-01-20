@@ -19,6 +19,34 @@ export default function CarForm({ carId }: CarFormProps) {
     condition: "Used",
     description: "",
     status: "Available",
+    inspectionNote: "",
+  })
+
+  const [inspectionChecklist, setInspectionChecklist] = useState({
+    mechanical: {
+      engineNoise: false,
+      oilLeaks: false,
+      coolingSystem: false,
+      gearboxResponse: false,
+      suspensionSteering: false,
+      brakeCondition: false,
+    },
+    electrical: {
+      ecuScan: false,
+      sensors: false,
+      dashboardWarnings: false,
+      acSystem: false,
+    },
+    structural: {
+      chassisAlignment: false,
+      accidentSigns: false,
+      rustInspection: false,
+    },
+    documents: {
+      vinVerification: false,
+      customsPapers: false,
+      ownershipHistory: false,
+    },
   })
 
   const [images, setImages] = useState<File[]>([])
@@ -34,6 +62,16 @@ export default function CarForm({ carId }: CarFormProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleChecklistChange = (category: keyof typeof inspectionChecklist, item: string) => {
+    setInspectionChecklist((prev) => ({
+      ...prev,
+      [category]: {
+        ...prev[category],
+        [item]: !prev[category][item as keyof typeof prev[keyof typeof inspectionChecklist]],
+      },
+    }))
   }
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -168,6 +206,7 @@ export default function CarForm({ carId }: CarFormProps) {
         mileage: Number(formData.mileage),
         images: imageUrls,
         video: videoUrl,
+        inspectionChecklist,
       }
 
       const response = await fetch("/api/cars", {
@@ -352,6 +391,118 @@ export default function CarForm({ carId }: CarFormProps) {
             required
             className="w-full px-4 py-2 border border-border rounded bg-background"
           />
+        </div>
+
+        {/* Engineer Inspection Checklist */}
+        <div className="bg-accent/5 border border-accent/20 rounded-lg p-6">
+          <h3 className="text-lg font-bold mb-4">🔧 Engineer Inspection Checklist</h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            {/* Mechanical */}
+            <div>
+              <h4 className="font-semibold mb-3 text-accent">Mechanical</h4>
+              <div className="space-y-2">
+                {Object.entries({
+                  engineNoise: "Engine noise & compression",
+                  oilLeaks: "Oil leaks",
+                  coolingSystem: "Cooling system",
+                  gearboxResponse: "Gearbox response",
+                  suspensionSteering: "Suspension & steering",
+                  brakeCondition: "Brake condition",
+                }).map(([key, label]) => (
+                  <label key={key} className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={inspectionChecklist.mechanical[key as keyof typeof inspectionChecklist.mechanical]}
+                      onChange={() => handleChecklistChange("mechanical", key)}
+                      className="rounded"
+                    />
+                    <span className="text-sm">{label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Electrical */}
+            <div>
+              <h4 className="font-semibold mb-3 text-accent">Electrical</h4>
+              <div className="space-y-2">
+                {Object.entries({
+                  ecuScan: "ECU scan",
+                  sensors: "Sensors",
+                  dashboardWarnings: "Dashboard warnings",
+                  acSystem: "AC system",
+                }).map(([key, label]) => (
+                  <label key={key} className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={inspectionChecklist.electrical[key as keyof typeof inspectionChecklist.electrical]}
+                      onChange={() => handleChecklistChange("electrical", key)}
+                      className="rounded"
+                    />
+                    <span className="text-sm">{label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Structural */}
+            <div>
+              <h4 className="font-semibold mb-3 text-accent">Structural</h4>
+              <div className="space-y-2">
+                {Object.entries({
+                  chassisAlignment: "Chassis alignment",
+                  accidentSigns: "Accident signs",
+                  rustInspection: "Rust inspection",
+                }).map(([key, label]) => (
+                  <label key={key} className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={inspectionChecklist.structural[key as keyof typeof inspectionChecklist.structural]}
+                      onChange={() => handleChecklistChange("structural", key)}
+                      className="rounded"
+                    />
+                    <span className="text-sm">{label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Documents */}
+            <div>
+              <h4 className="font-semibold mb-3 text-accent">Documents</h4>
+              <div className="space-y-2">
+                {Object.entries({
+                  vinVerification: "VIN verification",
+                  customsPapers: "Customs papers",
+                  ownershipHistory: "Ownership history",
+                }).map(([key, label]) => (
+                  <label key={key} className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={inspectionChecklist.documents[key as keyof typeof inspectionChecklist.documents]}
+                      onChange={() => handleChecklistChange("documents", key)}
+                      className="rounded"
+                    />
+                    <span className="text-sm">{label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Inspection Note */}
+          <div>
+            <label className="block text-sm font-semibold mb-2">Inspector Notes</label>
+            <textarea
+              name="inspectionNote"
+              value={formData.inspectionNote}
+              onChange={handleChange}
+              placeholder="Add any additional inspection findings or notes..."
+              rows={3}
+              className="w-full px-4 py-2 border border-border rounded bg-background text-sm"
+            />
+          </div>
         </div>
 
         {/* Image Upload Section */}
