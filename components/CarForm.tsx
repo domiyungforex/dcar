@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useState, useRef } from "react"
+import { getAdminCode } from "@/lib/admin-helpers"
 
 interface CarFormProps {
   carId?: string
@@ -166,7 +167,13 @@ export default function CarForm({ carId }: CarFormProps) {
     try {
       // Upload images and video to blob storage
       const imageUrls: string[] = []
-      const adminCode = "123456"
+      const adminCode = getAdminCode()
+
+      if (!adminCode) {
+        setError("Admin authentication required for uploads")
+        setIsUploading(false)
+        return
+      }
 
       // Upload images
       for (const image of images) {

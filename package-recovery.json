@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "recover": "node -e \"require('dotenv').config(); const https = require('https'); const data = JSON.stringify({key:'dcar:cars',value:JSON.stringify({...})}); const opts = {hostname:'clean-oryx-35566.upstash.io',path:'/set',method:'POST',headers:{'Authorization':'Bearer '+process.env.KV_REST_API_TOKEN,'Content-Type':'application/json'}}; https.request(opts,(r)=>console.log('Done')).end(data);\"",
+    "test": "echo test"
+  }
+}

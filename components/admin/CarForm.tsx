@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
+import { getAdminCode } from "@/lib/admin-helpers"
 
 interface CarFormProps {
   carId?: string
@@ -51,6 +52,12 @@ export const CarForm = ({ carId }: CarFormProps) => {
   async function handleImageUpload(files: FileList) {
     if (!files) return
 
+    const adminCode = getAdminCode()
+    if (!adminCode) {
+      setError("Admin code not found. Please re-enter your admin code.")
+      return
+    }
+
     const filesToUpload = Array.from(files)
     setUploading(true)
     setError(null)
@@ -65,7 +72,7 @@ export const CarForm = ({ carId }: CarFormProps) => {
         const res = await fetch("/api/admin/upload", {
           method: "POST",
           headers: {
-            "x-admin-code": "123456",
+            "x-admin-code": adminCode,
           },
           body: formData,
         })
@@ -99,6 +106,13 @@ export const CarForm = ({ carId }: CarFormProps) => {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    
+    const adminCode = getAdminCode()
+    if (!adminCode) {
+      setError("Admin code not found. Please re-enter your admin code.")
+      return
+    }
+    
     setLoading(true)
     setError(null)
 
@@ -110,7 +124,7 @@ export const CarForm = ({ carId }: CarFormProps) => {
         method,
         headers: {
           "Content-Type": "application/json",
-          "x-admin-code": "123456",
+          "x-admin-code": adminCode,
         },
         body: JSON.stringify({
           ...formData,
