@@ -79,15 +79,42 @@ export async function sendEmailNotification(
 }
 
 export async function sendInquiryNotification(inquiry: any) {
+  const carInfo = inquiry.carTitle ? `
+    <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+      <h3 style="margin: 0 0 10px 0; color: #333;">🚗 Car Details</h3>
+      <p style="margin: 5px 0;"><strong>Car:</strong> ${inquiry.carTitle}</p>
+      <p style="margin: 5px 0;"><strong>Car ID:</strong> ${inquiry.carId}</p>
+    </div>
+  ` : ''
+
   const html = `
-    <h2>New Car Inquiry</h2>
-    <p><strong>Name:</strong> ${inquiry.data?.name}</p>
-    <p><strong>Email:</strong> ${inquiry.email}</p>
-    <p><strong>Phone:</strong> ${inquiry.data?.phone}</p>
-    <p><strong>Message:</strong></p>
-    <p>${inquiry.data?.message}</p>
+    <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+      <h2 style="color: #0066cc; border-bottom: 2px solid #0066cc; padding-bottom: 10px;">New Car Inquiry</h2>
+      
+      ${carInfo}
+
+      <div style="background: #fff; padding: 15px; border: 1px solid #ddd; border-radius: 8px;">
+        <h3 style="margin: 0 0 15px 0; color: #333;">👤 Customer Information</h3>
+        <p style="margin: 8px 0;"><strong>Name:</strong> ${inquiry.name || inquiry.data?.name}</p>
+        <p style="margin: 8px 0;"><strong>Email:</strong> <a href="mailto:${inquiry.email}">${inquiry.email}</a></p>
+        <p style="margin: 8px 0;"><strong>Phone:</strong> ${inquiry.phone || inquiry.data?.phone}</p>
+      </div>
+
+      <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 15px;">
+        <h3 style="margin: 0 0 10px 0; color: #333;">💬 Message</h3>
+        <p style="margin: 0; white-space: pre-wrap; background: #fff; padding: 10px; border-left: 3px solid #0066cc;">
+          ${inquiry.message || inquiry.data?.message}
+        </p>
+      </div>
+
+      <div style="margin-top: 20px; padding: 15px; background: #e8f4f8; border-radius: 8px; border-left: 4px solid #0066cc;">
+        <p style="margin: 0; color: #0066cc;">
+          <strong>📧 Reply to:</strong> ${inquiry.email}
+        </p>
+      </div>
+    </div>
   `
-  return sendEmailNotification('New Car Inquiry', html, undefined, inquiry.email)
+  return sendEmailNotification('🚗 New Car Inquiry', html, undefined, inquiry.email)
 }
 
 export async function sendNewsletterNotification(email: string) {
