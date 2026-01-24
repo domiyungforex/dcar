@@ -1,0 +1,300 @@
+{
+  "timestamp": "2026-01-24T21:00:29.532Z",
+  "cars": {
+    "car-1": {
+      "id": "car-1",
+      "title": "2022 Toyota Camry - Premium Sedan",
+      "price": 8500000,
+      "brand": "Toyota",
+      "year": 2022,
+      "mileage": 45000,
+      "condition": "excellent",
+      "images": [
+        "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=1200&h=675",
+        "https://images.unsplash.com/photo-1581274455760-ce4c0db2817d?w=1200&h=675"
+      ],
+      "video": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "description": "Beautiful 2022 Toyota Camry in excellent condition. Well-maintained with full service history. Perfect family sedan.",
+      "createdAt": "2026-01-24T20:51:33.969Z",
+      "status": "available"
+    },
+    "car-2": {
+      "id": "car-2",
+      "title": "2021 Honda Accord - Automatic",
+      "price": 7200000,
+      "brand": "Honda",
+      "year": 2021,
+      "mileage": 52000,
+      "condition": "good",
+      "images": [
+        "https://images.unsplash.com/photo-1609708536965-59e31eef5924?w=1200&h=675",
+        "https://images.unsplash.com/photo-1494976866556-6812c6aa1c90?w=1200&h=675"
+      ],
+      "description": "Reliable Honda Accord with smooth automatic transmission. Great fuel efficiency.",
+      "createdAt": "2026-01-24T20:51:33.970Z",
+      "status": "available"
+    },
+    "car-3": {
+      "id": "car-3",
+      "title": "2023 Lexus ES - Luxury Sedan",
+      "price": 12500000,
+      "brand": "Lexus",
+      "year": 2023,
+      "mileage": 15000,
+      "condition": "excellent",
+      "images": [
+        "https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=1200&h=675",
+        "https://images.unsplash.com/photo-1618654377441-ca6d40a3a2e0?w=1200&h=675"
+      ],
+      "video": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "description": "Premium luxury sedan with all modern features. Impeccable condition.",
+      "createdAt": "2026-01-24T20:51:33.970Z",
+      "status": "available"
+    },
+    "car-4": {
+      "id": "car-4",
+      "title": "2020 BMW X5 - SUV",
+      "price": 10800000,
+      "brand": "BMW",
+      "year": 2020,
+      "mileage": 68000,
+      "condition": "good",
+      "images": [
+        "https://images.unsplash.com/photo-1606611013016-969c19d14a7f?w=1200&h=675",
+        "https://images.unsplash.com/photo-1561518776-e76a5c8f0744?w=1200&h=675"
+      ],
+      "description": "Spacious BMW X5 SUV. Perfect for families. All-wheel drive with excellent handling.",
+      "createdAt": "2026-01-24T20:51:33.970Z",
+      "status": "available"
+    },
+    "car-5": {
+      "id": "car-5",
+      "title": "2019 Mercedes C-Class - Elegant",
+      "price": 9200000,
+      "brand": "Mercedes",
+      "year": 2019,
+      "mileage": 75000,
+      "condition": "good",
+      "images": [
+        "https://images.unsplash.com/photo-1567818735868-e71b99932e29?w=1200&h=675",
+        "https://images.unsplash.com/photo-1566023967268-de0fb65e61c4?w=1200&h=675"
+      ],
+      "description": "Classic Mercedes elegance with powerful engine. Recently serviced.",
+      "createdAt": "2026-01-24T20:51:33.970Z",
+      "status": "available"
+    }
+  },
+  "inquiries": {
+    "submission:inquiry-1768835853789-6n17v68vh": {
+      "id": "inquiry-1768835853789-6n17v68vh",
+      "type": "inquiry",
+      "email": "danphantom36@gmail.com",
+      "data": {
+        "type": "contact",
+        "name": "Bulaabaa",
+        "phone": "9484870467",
+        "subject": "Buy car",
+        "message": "I need it to ballllll",
+        "submittedAt": "2026-01-19T15:17:33.789Z"
+      },
+      "createdAt": "2026-01-19T15:17:33.789Z",
+      "status": "new"
+    },
+    "submission:inquiry-1768862332427-c8s81cscd": {
+      "id": "inquiry-1768862332427-c8s81cscd",
+      "type": "inquiry",
+      "email": "dominion@gmail.com",
+      "data": {
+        "type": "contact",
+        "name": "brandon hunter",
+        "phone": "567837647829",
+        "subject": "ueghjhg",
+        "message": "fghejdhcvdsnmal,mn",
+        "submittedAt": "2026-01-19T22:38:52.424Z"
+      },
+      "createdAt": "2026-01-19T22:38:52.427Z",
+      "status": "new"
+    },
+    "submission:inquiry-1768863689535-g2jy8vzml": {
+      "id": "inquiry-1768863689535-g2jy8vzml",
+      "type": "inquiry",
+      "email": "fghjrhgefwhjs@gmail.com",
+      "data": {
+        "type": "contact",
+        "name": "brandon hunter",
+        "phone": "45674389345",
+        "subject": "hjfkgchijkdlnbfvc",
+        "message": "vncm nbvmdc",
+        "submittedAt": "2026-01-19T23:01:29.533Z"
+      },
+      "createdAt": "2026-01-19T23:01:29.535Z",
+      "status": "new"
+    },
+    "submission:inquiry-1768864761919-0v4rctojv": {
+      "id": "inquiry-1768864761919-0v4rctojv",
+      "type": "inquiry",
+      "email": "hgthdjskdfngtyjr@gmail.com",
+      "data": {
+        "type": "contact",
+        "name": "brandon hunter",
+        "phone": "67654367654",
+        "subject": "njvdshvgyheucsijv",
+        "message": "fnvbrjnkgefnbgreunimdnibufvd",
+        "submittedAt": "2026-01-19T23:19:21.918Z"
+      },
+      "createdAt": "2026-01-19T23:19:21.919Z",
+      "status": "new"
+    },
+    "submission:inquiry-1768865261291-7eb5kxqfn": {
+      "id": "inquiry-1768865261291-7eb5kxqfn",
+      "type": "inquiry",
+      "email": "ASDFGHJKJHGFD@GMAIL.COM",
+      "data": {
+        "type": "contact",
+        "name": "brandon hunter",
+        "phone": "1234567890",
+        "subject": "ASDFGHMMNB",
+        "message": "ASDFGHJK,MNBVFTY",
+        "submittedAt": "2026-01-19T23:27:41.287Z"
+      },
+      "createdAt": "2026-01-19T23:27:41.291Z",
+      "status": "new"
+    },
+    "submission:inquiry-1768913061032-6e96k5mgn": {
+      "id": "inquiry-1768913061032-6e96k5mgn",
+      "type": "inquiry",
+      "email": "adedejiokubanjo39@gmail.com",
+      "data": {
+        "name": "adedeji okubanjo",
+        "carId": "6e7d1058-c139-4f21-9495-8150be181de8",
+        "phone": "08104616646",
+        "message": "Your button doesn't have the \"send\" text\n",
+        "submittedAt": "2026-01-20T12:44:21.031Z"
+      },
+      "createdAt": "2026-01-20T12:44:21.032Z",
+      "status": "new"
+    },
+    "submission:inquiry-1768917177828-r2msg0zmw": {
+      "id": "inquiry-1768917177828-r2msg0zmw",
+      "type": "inquiry",
+      "email": "segunlarry321@gmail.com",
+      "data": {
+        "name": "Drex",
+        "carId": "34547dd1-d10b-48bf-a9fb-9345360e2ac6",
+        "phone": "08083312366",
+        "message": "Isane",
+        "submittedAt": "2026-01-20T13:52:57.828Z"
+      },
+      "createdAt": "2026-01-20T13:52:57.828Z",
+      "status": "new"
+    },
+    "submission:inquiry-1768917548762-fyym6mqbu": {
+      "id": "inquiry-1768917548762-fyym6mqbu",
+      "type": "inquiry",
+      "email": "dominionakinyele@gmail.com",
+      "data": {
+        "name": "brandon hunter",
+        "carId": "e5f31aa3-80f7-4b88-acd4-16f52fb368fc",
+        "phone": "08144106776",
+        "message": "i want it ",
+        "submittedAt": "2026-01-20T13:59:08.762Z"
+      },
+      "createdAt": "2026-01-20T13:59:08.762Z",
+      "status": "new"
+    },
+    "submission:inquiry-1769266125874-vezypngjf": {
+      "id": "inquiry-1769266125874-vezypngjf",
+      "type": "inquiry",
+      "email": "oba@gmail.com",
+      "data": {
+        "name": "oba",
+        "carId": "2c83a90b-f1d6-40bf-97e5-3b8122099d87",
+        "carTitle": "2017 LEXUS RX350",
+        "phone": "12345678",
+        "message": "fghjmvghjmnbghjk",
+        "submittedAt": "2026-01-24T14:48:45.874Z"
+      },
+      "createdAt": "2026-01-24T14:48:45.874Z",
+      "status": "new"
+    },
+    "submission:inquiry-1769268634498-ljwi0salg": {
+      "id": "inquiry-1769268634498-ljwi0salg",
+      "type": "inquiry",
+      "email": "admin@dyzora.com",
+      "data": {
+        "name": "Dominion",
+        "carId": "94db6630-dd2c-4220-a6e9-4636a5dc667b",
+        "carTitle": "2015 TOYOTA HIGHLANDER ",
+        "phone": "8144106776",
+        "message": "Week chic. Cc. Be free",
+        "submittedAt": "2026-01-24T15:30:34.498Z"
+      },
+      "createdAt": "2026-01-24T15:30:34.498Z",
+      "status": "new"
+    },
+    "submission:inquiry-1769268663095-439g4iv07": {
+      "id": "inquiry-1769268663095-439g4iv07",
+      "type": "inquiry",
+      "email": "rbase11223@gmail.com",
+      "data": {
+        "name": "AS ",
+        "carId": "94db6630-dd2c-4220-a6e9-4636a5dc667b",
+        "carTitle": "2015 TOYOTA HIGHLANDER ",
+        "phone": "8144106776",
+        "message": "The only way I yh",
+        "submittedAt": "2026-01-24T15:31:03.095Z"
+      },
+      "createdAt": "2026-01-24T15:31:03.095Z",
+      "status": "new"
+    },
+    "submission:service-inquiry-1768834315578-t4b9xms76": {
+      "id": "service-inquiry-1768834315578-t4b9xms76",
+      "type": "service-inquiry",
+      "email": "dominionakinyele@gmail.com",
+      "data": {
+        "serviceType": "engine-overhaul",
+        "serviceName": "Engine Overhaul",
+        "name": "brandon hunter",
+        "phone": "08144106776",
+        "vehicleInfo": "juyuj78909",
+        "description": "nbghjn bhjnm bnjmnjklmk",
+        "preferredDate": "2026-01-13"
+      },
+      "createdAt": "2026-01-19T14:51:55.578Z",
+      "status": "new"
+    },
+    "submission:service-inquiry-1768837401069-wcrmfjorn": {
+      "id": "service-inquiry-1768837401069-wcrmfjorn",
+      "type": "service-inquiry",
+      "email": "rbase11223@gmail.com",
+      "data": {
+        "serviceType": "engine-overhaul",
+        "serviceName": "Engine Overhaul",
+        "name": "Ueuveevb",
+        "phone": "8144106776",
+        "vehicleInfo": "Hhehdh",
+        "description": " Bsbdbdbfb",
+        "preferredDate": "2026-01-19"
+      },
+      "createdAt": "2026-01-19T15:43:21.069Z",
+      "status": "new"
+    },
+    "submission:service-inquiry-1768866250184-kqs4p08m3": {
+      "id": "service-inquiry-1768866250184-kqs4p08m3",
+      "type": "service-inquiry",
+      "email": "dominionakinyele@gmail.com",
+      "data": {
+        "serviceType": "maintenance",
+        "serviceName": "Maintenance & Repairs",
+        "name": "brandon hunter",
+        "phone": "08144106776",
+        "vehicleInfo": "juyuj78909",
+        "description": "OPKKMMM",
+        "preferredDate": "2026-01-20"
+      },
+      "createdAt": "2026-01-19T23:44:10.184Z",
+      "status": "new"
+    }
+  },
+  "recovered": true
+}
