@@ -27,7 +27,7 @@ export default function Footer() {
             <p className="text-sm text-muted-foreground">
               Email: dcar@gmail.com
               <br />
-              Phone: 08144106774
+              Phone: 08144106774, 08083312366
               <br />
               <span className="text-xs mt-2 block">Lagos: Plot 15, Marina Business District, Lagos Island</span>
               <span className="text-xs block">Ogun: Ibogun Industrial Estate, Ogun State</span>
